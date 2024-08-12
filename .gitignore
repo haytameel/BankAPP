@@ -36,3 +36,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Esto hace que se ignore el archivo config.properties
+config.properties

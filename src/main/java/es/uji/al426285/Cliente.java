@@ -87,7 +87,7 @@ public class Cliente {
         return "Cliente--> "+apellidos+", "+nombre+ " con dni '"+dni+"'.";
     }
 
-    public static String getFechaUSA(String fecha){
+    public static String getFechaUSA(String fecha){//transformar fecha europea en fecha usa
         String[] vector =fecha.split("/");
         String dia=vector[0];
         String mes=vector[1];

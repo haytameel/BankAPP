@@ -11,21 +11,22 @@ public class Main {
     public static void main(String[] args) throws SQLException {
 
         System.out.println("Bienvenido----\n");
+        /*
         //cliente
         Cliente cliente = new Cliente();
-        cliente.setNombre("Pepito");cliente.setApellidos("Ramirez");cliente.setDni("11111111p");
+        cliente.setNombre("ISMA");cliente.setApellidos("Ramirez");cliente.setDni("2121131P");
         cliente.setDireccion("BURRIANA");cliente.setTelefono("62713133");
         cliente.setEmail("pepito.perez@example.com");cliente.setFechaNacimiento("15/12/2001");
         //saldo
         Cuenta cuenta = new Cuenta();
         cuenta.setSaldo(10.0); // Saldo inicial
-        cuenta.setDniTitular("11111111p"); // DNI del titular
+        cuenta.setDniTitular("2121131P"); // DNI del titular
         cuenta.setFecha("20/06/2024");
         //transaccion
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-        Transaccion transaccion=new Transaccion(46,20, formattedDateTime);
+        String fecha = currentDateTime.format(formatter);
+        Transaccion transaccion=new Transaccion(46,20,fecha,0,null);
 
         //prueba cliente
         if (cliente.insertarCliente()){
@@ -43,7 +44,11 @@ public class Main {
             System.out.println("¡UPS! Ha habido un error al insertar la cuenta");
 
         }
-
+*/
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String fecha = currentDateTime.format(formatter);
+        Transaccion transaccion=new Transaccion(1,500,fecha,2,2);
         //prueba transaccion
         if (transaccion.insertarTransaccion())
             System.out.println("¡Transacción realizada correctamente!");

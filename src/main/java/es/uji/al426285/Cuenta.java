@@ -11,7 +11,7 @@ public class Cuenta {
     private int id_cuenta;
     private double saldo;
     private String dniTitular;
-    private String fecha;
+    private String fecha;//fecha de alta
 
     // Constructor
     public Cuenta(int id_cuenta, double saldo, String dniTitular, String fecha) {

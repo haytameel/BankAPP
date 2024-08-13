@@ -68,7 +68,7 @@ public class Cuenta {
             PreparedStatement accion=connection.prepareStatement(insertar);
             accion.setDouble(1, this.getSaldo());
             accion.setString(2,this.getDniTitular());
-            accion.setString(3,getFechaUSA(this.fecha));
+            accion.setString(3,this.fecha);
 
             int cambios= accion.executeUpdate();
             System.out.println("Cambios: "+cambios);

@@ -39,13 +39,13 @@ public class Transaccion {
     public String toString() {
         String mensaje = "";
         switch (this.tipo) {
-            case 0:
+            case INGRESO:
                 mensaje = "Ingreso de " + cantidad + "€ a la cuenta " + idCuenta + " a fecha de " + fecha + ".";
                 break;
-            case 2:
+            case RETIRO:
                 mensaje = "Retiro de " + cantidad + "€ de la cuenta " + idCuenta + " a fecha de " + fecha + ".";
                 break;
-            case 3:
+            case TRANSFERENCIA:
                 mensaje = "Transferencia de " + cantidad + "con origen" + idCuenta + "a la cuenta destino " + idDestino + " a fecha de " + fecha + ".";
                 break;
             default:

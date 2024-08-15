@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ee2dcaf-8aa7-4cd4-952f-8626a47fdaba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Consulta.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/cuenta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/imagen.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/usuario.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cuenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cuenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Transaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Transaccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +20,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
@@ -45,7 +45,8 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/hayta/IdeaProjects/SongsFX&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hayta/OneDrive/Escritorio/Proyectos/BankAPP/src/Files&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -65,12 +66,15 @@
   }
 }</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\hayta\OneDrive\Escritorio\Proyectos\BankAPP\src\Files" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hayta\OneDrive\Escritorio\Proyectos\BankAPP" />
       <recent name="C:\Users\hayta\OneDrive\Escritorio\Proyectos\BankAPP\src\main\java\es\uji\al426285" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.App">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="es.uji.al426285.App" />
       <module name="BankAPP" />
@@ -99,8 +103,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.App" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -123,22 +127,12 @@
       <workItem from="1718818291749" duration="4423000" />
       <workItem from="1718834146165" duration="13085000" />
       <workItem from="1723324345418" duration="3806000" />
-      <workItem from="1723461445206" duration="21000000" />
+      <workItem from="1723461445206" duration="34981000" />
+      <workItem from="1723717439873" duration="8288000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/es/uji/al426285/Main.java</url>
-          <line>19</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

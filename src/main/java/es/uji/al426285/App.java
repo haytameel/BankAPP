@@ -52,7 +52,17 @@ public class App extends Application {
     /////////////VENTANA CONSULTA/////////////////////////////
     Stage ventana_consulta = new Stage();
     TextField dni_consulta=new TextField();
-    Button confirmar_consulta=new Button("Confirmar");
+    Button confirmar_consulta=new Button("Aceptar");
+    /////////////VENTANA OPERACIÓN/////////////////////////////
+    Stage ventana_operacion = new Stage();
+    ComboBox combo = new ComboBox();
+    Button confirmar_operacion=new Button("Aceptar");
+    //////////////////INGRESAR///////////////////////////
+    Stage ventana_ingresar = new Stage();
+    TextField dni_ingresar=new TextField();
+    TextField monto_ingresar=new TextField();
+    Button confirmar_ingreso=new Button("Ingresar");
+
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -87,7 +97,7 @@ public class App extends Application {
                     ventana_consulta();
 
                 } else if (opcion_operar.isSelected()) {
-                    System.out.println("ventana4");
+                    ventana_operacion();
                 } else {// no haria falta esto si uso el disable
                     Alert alerta = new Alert(Alert.AlertType.WARNING);
                     alerta.setTitle("Advertencia");
@@ -161,6 +171,41 @@ public class App extends Application {
             }
 
         });
+        confirmar_operacion.setOnAction(e->{
+            if (combo.getValue()==null){
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Escoja una opción antes de hacer clic sobre aceptar.");
+                alerta.showAndWait();
+            }
+            else {
+                String opcion = combo.getValue().toString();
+                switch (opcion) {
+                    case "Ingresar":
+                        try {
+                            ventana_ingresar();
+                        } catch (FileNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        break;
+                    case "Retirar":
+                        try {
+                            ventana_retirar();
+                        } catch (FileNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        break;
+                    case "Transferir":
+                        try {
+                            ventana_transferir();
+                        } catch (FileNotFoundException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                        break;
+                }
+            }
+        });
         //Comprobaciones, correo, tlf, dni:
         correoo.textProperty().addListener(e -> {
             if (!comprobar_correo(correoo.getText())) {
@@ -202,11 +247,11 @@ public class App extends Application {
         dni_consulta.textProperty().addListener(e->{
             if (dni_consulta.getText().isEmpty() || !comprobar_dni(dni_consulta.getText())) {
                 dni_consulta.setStyle("-fx-border-color: red;");
-                confirmar_alta.setDisable(true);
+                confirmar_consulta.setDisable(true);
             }
             else{
                 dni_consulta.setStyle("");
-                confirmar_alta.setDisable(false);
+                confirmar_consulta.setDisable(false);
             }
         });
 
@@ -287,6 +332,106 @@ public class App extends Application {
         ventana_consulta.show();
 
     }
+    private void ventana_operacion() throws FileNotFoundException {
+        Label titulo=new Label("Escoja una opción: ");
+        titulo.setFont(Font.font("System", FontWeight.BOLD, 20));
+        combo.getItems().addAll("Ingresar","Retirar","Transferir");
+        combo.setPrefWidth(200);
+        HBox hBox=new HBox(combo,confirmar_operacion);
+        hBox.setSpacing(10);
+        VBox vBox=new VBox(titulo,combo,confirmar_operacion);
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vBox);
+        Scene scene = new Scene(borderPane, 380, 380);
+        aplicarEstiloBoton(confirmar_operacion);
+        ventana_operacion.setScene(scene);
+        ventana_operacion.setTitle("Operar");
+        InputStream entrada = new FileInputStream(ruta_icono + "usuario.png");
+        Image imagen = new Image(entrada);
+        ventana_operacion.getIcons().add(imagen);
+        vBox.setStyle("-fx-background-color: #B4D2D9;");
+        vBox.setSpacing(8);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        ventana_operacion.show();
+    }
+    public void ventana_ingresar() throws FileNotFoundException {
+        Label titulo=new Label("Ingrese su dni: ");
+        titulo.setFont(Font.font("System", FontWeight.BOLD, 15));
+        Label titulo_monto=new Label("Ingrese el monto a ingresar: ");
+        titulo_monto.setFont(Font.font("System", FontWeight.BOLD, 15));
+        aplicarEstiloBoton(confirmar_ingreso);
+        VBox vBox=new VBox(titulo,dni_ingresar,titulo_monto,monto_ingresar,confirmar_ingreso);
+        vBox.setStyle("-fx-background-color: #B4D2D9;");
+        vBox.setSpacing(8);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vBox);
+        Scene scene = new Scene(borderPane, 380, 380);
+        ventana_ingresar.setScene(scene);
+        ventana_ingresar.setTitle("Ingresar");
+        InputStream entrada = new FileInputStream(ruta_icono + "ingresar.png");
+        Image imagen = new Image(entrada);
+        ventana_ingresar.getIcons().add(imagen);
+        ventana_ingresar.show();
+
+    }
+
+    public void ventana_retirar() throws FileNotFoundException {
+        Stage ventana_retirar = new Stage();
+        TextField dni_retirar=new TextField();
+        TextField monto_retirar=new TextField();
+        Button confirmar_retiro=new Button("Retirar");
+        Label titulo=new Label("Ingrese su dni: ");
+        titulo.setFont(Font.font("System", FontWeight.BOLD, 15));
+        Label titulo_monto=new Label("Ingrese el monto a retirar: ");
+        titulo_monto.setFont(Font.font("System", FontWeight.BOLD, 15));
+        aplicarEstiloBoton(confirmar_retiro);
+        VBox vBox=new VBox(titulo,dni_retirar,titulo_monto,monto_retirar,confirmar_retiro);
+        vBox.setStyle("-fx-background-color: #B4D2D9;");
+        vBox.setSpacing(8);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vBox);
+        Scene scene = new Scene(borderPane, 380, 380);
+        ventana_retirar.setScene(scene);
+        ventana_retirar.setTitle("Ingresar");
+        InputStream entrada = new FileInputStream(ruta_icono + "retirar.png");
+        Image imagen = new Image(entrada);
+        ventana_retirar.getIcons().add(imagen);
+        ventana_retirar.show();
+
+    }
+
+    public void ventana_transferir() throws FileNotFoundException {
+        Stage ventana_transferir = new Stage();
+        TextField dni_transferir=new TextField();
+        TextField monto_transferir=new TextField();
+        Button confirmar_transferencia=new Button("Transferir");
+        Label titulo=new Label("Ingrese su dni: ");
+        titulo.setFont(Font.font("System", FontWeight.BOLD, 15));
+        Label titulo_monto=new Label("Ingrese el monto a transferir: ");
+        titulo_monto.setFont(Font.font("System", FontWeight.BOLD, 15));
+        Label titulo_dni_destino=new Label("Ingrese el dni del destinatario: ");
+        titulo_dni_destino.setFont(Font.font("System", FontWeight.BOLD, 15));
+        TextField dni_destino=new TextField();
+        aplicarEstiloBoton(confirmar_transferencia);
+        VBox vBox=new VBox(titulo,dni_transferir,titulo_dni_destino,dni_destino,titulo_monto,monto_transferir,confirmar_transferencia);
+        vBox.setStyle("-fx-background-color: #B4D2D9;");
+        vBox.setSpacing(8);
+        vBox.setPadding(new Insets(10, 10, 10, 10));
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vBox);
+        Scene scene = new Scene(borderPane, 380, 380);
+        ventana_transferir.setScene(scene);
+        ventana_transferir.setTitle("Transferir");
+        InputStream entrada = new FileInputStream(ruta_icono + "transferir.png");
+        Image imagen = new Image(entrada);
+        ventana_transferir.getIcons().add(imagen);
+        ventana_transferir.show();
+
+    }
+
+
 
     private void aplicarEstiloBoton(Button boton) {
         boton.setStyle("-fx-background-color:#025159" + ";    -fx-background-radius: 5,4,3,5;\n"

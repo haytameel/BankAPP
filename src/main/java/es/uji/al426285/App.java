@@ -29,7 +29,7 @@ public class App extends Application {
     RadioButton opcion_alta = new RadioButton("Registrar un usuario");
     RadioButton opcion_consulta = new RadioButton("Realizar una consulta");
     RadioButton opcion_operar = new RadioButton("Realizar una operación");
-    ////////////////////////////////////////
+    ///////////VENTANA ALTA//////////////////////
     Stage ventana_alta = new Stage();
     Button confirmar_alta = new Button("Aceptar");
     Label titulo = new Label("Introduce los datos del nuevo usuario");
@@ -47,8 +47,12 @@ public class App extends Application {
     TextField direccionn = new TextField();
     Label fecha_nacimiento = new Label("Fecha de nacimiento:");
     DatePicker fecha_nacimientoo = new DatePicker();
-///////////////////////////////////////////////
-
+    ///////////////////////////////////////////////
+    Controlador controlador = new Controlador();
+    /////////////VENTANA CONSULTA/////////////////////////////
+    Stage ventana_consulta = new Stage();
+    TextField dni_consulta=new TextField();
+    Button confirmar_consulta=new Button("Confirmar");
 
     @Override
     public void start(Stage stage) throws FileNotFoundException {
@@ -78,9 +82,9 @@ public class App extends Application {
         confirmar.setOnAction(e -> {
             try {
                 if (opcion_alta.isSelected()) {
-                    ventana2();
+                    ventana_alta();
                 } else if (opcion_consulta.isSelected()) {
-                    System.out.println("ventana3");
+                    ventana_consulta();
 
                 } else if (opcion_operar.isSelected()) {
                     System.out.println("ventana4");
@@ -106,10 +110,56 @@ public class App extends Application {
                 alerta.setHeaderText("¡ADVERTENCIA!");
                 alerta.setContentText("Por favor, rellena todos los campos");
                 alerta.showAndWait();
+            } else {
+                //Crear cliente y su cuenta
+                Cliente cliente = controlador.crear_cliente(nombree.getText(), apellidoss.getText(), dnii.getText(), direccionn.getText(), telefonoo.getText(), correoo.getText(), fecha_nacimientoo.getValue().toString());
+                Cuenta cuenta = controlador.crear_cuenta(dnii.getText());
+                //Insertar en la base de datos
+                if (controlador.insertar_cliente(cliente) && controlador.insertar_cuenta(cuenta)) {
+                    //Avisar de que se ha creado
+                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¡CONFIRMACIÓN!");
+                    alerta.setContentText("Usuario: " + nombree.getText() + " " + apellidoss.getText() + ", creado correctamente.");
+                    alerta.showAndWait();
+                }
+                else {
+                    Alert alerta = new Alert(Alert.AlertType.WARNING);
+                    alerta.setTitle("Advertencia");
+                    alerta.setHeaderText("¡ADVERTENCIA!");
+                    alerta.setContentText("Ha habido un problema. El cliente introducido ya se ha dado de alta previamente.");
+                    alerta.showAndWait();
+                }
             }
-            else {
-                //AQUI VIENE LA ACCION
+        });
+
+        confirmar_consulta.setOnAction(e->{
+            if (dni_consulta.getText().isEmpty()) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Por favor, escriba su dni.");
+                alerta.showAndWait();
             }
+            else{
+                try {
+                    Double saldo= controlador.realizar_consulta(dni_consulta.getText());
+                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¡CONFIRMACIÓN!");
+                    alerta.setContentText("El usuario con dni '"+dni_consulta.getText()+"' tiene un saldo de: "+saldo+"€");
+                    alerta.showAndWait();
+                }
+                catch (Exception ex){
+                    Alert alerta = new Alert(Alert.AlertType.ERROR);
+                    alerta.setTitle("Advertencia");
+                    alerta.setHeaderText("¡ADVERTENCIA!");
+                    alerta.setContentText("Cuenta inexistente. Por favor, introduzca una cuenta válida.");
+                    alerta.showAndWait();
+                }
+
+            }
+
         });
         //Comprobaciones, correo, tlf, dni:
         correoo.textProperty().addListener(e -> {
@@ -140,13 +190,23 @@ public class App extends Application {
             }
         });
 
-        fecha_nacimientoo.valueProperty().addListener((observable, oldValue, newValue)->{
-            if (newValue==null) {
+        fecha_nacimientoo.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
                 fecha_nacimientoo.setStyle("-fx-border-color: red;");
                 confirmar_alta.setDisable(true);
             } else {
                 confirmar_alta.setDisable(false);
                 fecha_nacimientoo.setStyle("");
+            }
+        });
+        dni_consulta.textProperty().addListener(e->{
+            if (dni_consulta.getText().isEmpty() || !comprobar_dni(dni_consulta.getText())) {
+                dni_consulta.setStyle("-fx-border-color: red;");
+                confirmar_alta.setDisable(true);
+            }
+            else{
+                dni_consulta.setStyle("");
+                confirmar_alta.setDisable(false);
             }
         });
 
@@ -189,7 +249,7 @@ public class App extends Application {
         return vbox;
     }
 
-    private void ventana2() throws FileNotFoundException {
+    private void ventana_alta() throws FileNotFoundException {
 
         aplicarEstiloBoton(confirmar_alta);
         titulo.setFont(Font.font("System", FontWeight.BOLD, 20));
@@ -206,6 +266,25 @@ public class App extends Application {
         Image imagen = new Image(entrada);
         ventana_alta.getIcons().add(imagen);
         ventana_alta.show();
+
+    }
+    private void ventana_consulta() throws FileNotFoundException {
+        Label titulo=new Label("Introduzca su dni: ");
+        VBox vBox=new VBox(titulo,dni_consulta,confirmar_consulta);
+        vBox.setStyle("-fx-background-color: #B4D2D9;");
+        vBox.setSpacing(6);
+        vBox.setPadding(new Insets(20, 10, 10, 10));
+        titulo.setFont(Font.font("System", FontWeight.BOLD, 20));
+        BorderPane borderPane = new BorderPane();
+        borderPane.setCenter(vBox);
+        Scene scene = new Scene(borderPane, 380, 380);
+        ventana_consulta.setScene(scene);
+        ventana_consulta.setTitle("Consultar saldo");
+        InputStream entrada = new FileInputStream(ruta_icono + "cuenta.png");
+        Image imagen = new Image(entrada);
+        ventana_alta.getIcons().add(imagen);
+        aplicarEstiloBoton(confirmar_consulta);
+        ventana_consulta.show();
 
     }
 
@@ -239,7 +318,7 @@ public class App extends Application {
         return dni != null && dni.matches(patron);
     }
 
-//    private boolean comprobar_fecha(String fecha){
+    //    private boolean comprobar_fecha(String fecha){
 ////        String patron="^\\d{2}/\\d{2}/\\d{4}";
 //      //  return fecha!=null && fecha.matches(patron);
 //        String[] partes=fecha.split("/");
@@ -254,3 +333,12 @@ public class App extends Application {
     }
 
 }
+
+/*
+* cliente.setNombre(nombree.getText());
+                cliente.setApellidos(apellidoss.getText());
+                cliente.setDni(dnii.getText());
+                cliente.setDireccion(direccionn.getText());
+                cliente.setTelefono(telefonoo.getText());
+                cliente.setEmail(correoo.getText());
+                cliente.setFechaNacimiento(fecha_nacimientoo.getValue().toString());*/

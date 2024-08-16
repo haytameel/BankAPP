@@ -110,7 +110,7 @@ public class Cliente {
             accion.setString(4,this.getTelefono());
             accion.setString(5,this.getDni());
             accion.setString(6,this.getDireccion());
-            accion.setString(7, getFechaUSA(this.getFechaNacimiento()));
+            accion.setString(7, (this.getFechaNacimiento()));
 
             int cambios= accion.executeUpdate();
             System.out.println("Cambios: "+cambios);

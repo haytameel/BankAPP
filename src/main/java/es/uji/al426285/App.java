@@ -280,9 +280,9 @@ public class App extends Application {
         Scene scene = new Scene(borderPane, 380, 380);
         ventana_consulta.setScene(scene);
         ventana_consulta.setTitle("Consultar saldo");
-        InputStream entrada = new FileInputStream(ruta_icono + "cuenta.png");
+        InputStream entrada = new FileInputStream(ruta_icono + "usuario.png");
         Image imagen = new Image(entrada);
-        ventana_alta.getIcons().add(imagen);
+        ventana_consulta.getIcons().add(imagen);
         aplicarEstiloBoton(confirmar_consulta);
         ventana_consulta.show();
 

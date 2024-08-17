@@ -53,6 +53,26 @@ public class Controlador {
          catch(Exception e){
              throw new Exception("Cuenta inexistente.");
          }
-
+    }
+    public boolean realizar_transaccion(int idCuenta, double cantidad, String fecha, int tipo, Integer idDestino) throws Exception {
+        Transaccion transaccion=new Transaccion(idCuenta, cantidad, fecha, tipo, idDestino);
+        try {
+        transaccion.insertarTransaccion();
+        }
+        catch(Exception e){
+            throw new Exception("La transacción no ha podido ser realizada.");
+        }
+        return true;
+    }
+    public int consultar_id(String dni) throws Exception {
+        Consulta consulta=new Consulta();
+        int id;
+        try {
+           id= consulta.consulta_id(dni);
+        }
+        catch(Exception e){
+            throw new Exception("Dni no encontrado.");
+        }
+        return id;
     }
 }

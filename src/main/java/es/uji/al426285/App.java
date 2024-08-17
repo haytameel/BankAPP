@@ -16,6 +16,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.nio.file.FileSystems;
+import java.time.LocalDateTime;
 
 
 /**
@@ -62,6 +63,18 @@ public class App extends Application {
     TextField dni_ingresar=new TextField();
     TextField monto_ingresar=new TextField();
     Button confirmar_ingreso=new Button("Ingresar");
+    //////////////////RETIRAR///////////////////////////
+    Stage ventana_retirar = new Stage();
+    TextField dni_retirar=new TextField();
+    TextField monto_retirar=new TextField();
+    Button confirmar_retiro=new Button("Retirar");
+    //////////////////TRANSFERIR///////////////////////////
+    Stage ventana_transferir = new Stage();
+    TextField dni_transferir=new TextField();
+    TextField monto_transferir=new TextField();
+    Button confirmar_transferencia=new Button("Transferir");
+    TextField dni_destino=new TextField();
+
 
 
     @Override
@@ -206,6 +219,96 @@ public class App extends Application {
                 }
             }
         });
+        confirmar_ingreso.setOnAction(e->{
+            if (dni_ingresar.getText().isEmpty() || !comprobar_dni(dni_ingresar.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("DNI erróneo.");
+                alerta.showAndWait();
+            } else if (monto_ingresar.getText().isEmpty() || !comprobar_monto(monto_ingresar.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos.");
+                alerta.showAndWait();
+            }
+            else {
+                int origen;
+                try {
+                    origen=controlador.consultar_id(dni_ingresar.getText());
+                    controlador.realizar_transaccion(origen, Double.parseDouble(monto_ingresar.getText()), LocalDateTime.now().toString(), 0, null);
+                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¡CONFIRMACIÓN!");
+                    alerta.setContentText("Ha ingresado un total de: "+monto_ingresar.getText()+"€"+" a la cuenta cuyo dni del titular es '"+dni_ingresar.getText()+"'");
+                    alerta.showAndWait();
+                } catch (Exception ex) {
+                    throw new RuntimeException("El ingreso no ha podido realizarse. Inténtelo de nuevo en unos segundos.");
+                }
+            }
+        });
+        confirmar_retiro.setOnAction(e->{
+            if (dni_retirar.getText().isEmpty() || !comprobar_dni(dni_retirar.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("DNI erróneo.");
+                alerta.showAndWait();
+            } else if (monto_retirar.getText().isEmpty() || !comprobar_monto(monto_retirar.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos.");
+                alerta.showAndWait();
+            }
+            else {
+                int origen;
+                try {
+                    origen=controlador.consultar_id(dni_retirar.getText());
+                    controlador.realizar_transaccion(origen, Double.parseDouble(monto_retirar.getText()), LocalDateTime.now().toString(), 1, null);
+                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¡CONFIRMACIÓN!");
+                    alerta.setContentText("Ha retirado un total de: "+monto_retirar.getText()+"€"+" de la cuenta cuyo dni del titular es '"+dni_retirar.getText()+"'");
+                    alerta.showAndWait();
+                } catch (Exception ex) {
+                    throw new RuntimeException("El ingreso no ha podido realizarse. Inténtelo de nuevo en unos segundos.");
+                }
+            }
+        });
+        confirmar_transferencia.setOnAction(e->{
+            if (dni_transferir.getText().isEmpty() || !comprobar_dni(dni_transferir.getText())|| dni_destino.getText().isEmpty() || !comprobar_dni(dni_destino.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("DNI erróneo.");
+                alerta.showAndWait();
+            } else if (monto_transferir.getText().isEmpty() || !comprobar_monto(monto_transferir.getText())) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos.");
+                alerta.showAndWait();
+            }
+            else {
+                int origen;
+                int destino;
+                try {
+                    origen=controlador.consultar_id(dni_transferir.getText());
+                    destino=controlador.consultar_id(dni_destino.getText());
+                    controlador.realizar_transaccion(origen, Double.parseDouble(monto_transferir.getText()), LocalDateTime.now().toString(), 2, destino);
+                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                    alerta.setTitle("Confirmación");
+                    alerta.setHeaderText("¡CONFIRMACIÓN!");
+                    alerta.setContentText("Ha transferido un total de: "+monto_transferir.getText()+"€"+" desde la cuenta cuyo dni del titular es '"+dni_transferir.getText()+
+                            "' a la cuenta cuyo dni del titular es "+"'"+dni_destino.getText()+"'");
+                    alerta.showAndWait();
+                } catch (Exception ex) {
+                    throw new RuntimeException("El ingreso no ha podido realizarse. Inténtelo de nuevo en unos segundos.");
+                }
+            }
+        });
         //Comprobaciones, correo, tlf, dni:
         correoo.textProperty().addListener(e -> {
             if (!comprobar_correo(correoo.getText())) {
@@ -254,6 +357,77 @@ public class App extends Application {
                 confirmar_consulta.setDisable(false);
             }
         });
+        dni_ingresar.textProperty().addListener(e->{
+            if (dni_ingresar.getText().isEmpty() || !comprobar_dni(dni_ingresar.getText())) {
+                dni_ingresar.setStyle("-fx-border-color: red;");
+                confirmar_ingreso.setDisable(true);
+            }
+            else{
+                dni_ingresar.setStyle("");
+                confirmar_ingreso.setDisable(false);
+            }
+        });
+        dni_retirar.textProperty().addListener(e->{
+            if (dni_retirar.getText().isEmpty() || !comprobar_dni(dni_retirar.getText())) {
+                dni_retirar.setStyle("-fx-border-color: red;");
+                confirmar_retiro.setDisable(true);
+            }
+            else{
+                dni_retirar.setStyle("");
+                confirmar_retiro.setDisable(false);
+            }
+        });
+        dni_transferir.textProperty().addListener(e->{
+            if (dni_transferir.getText().isEmpty() || !comprobar_dni(dni_transferir.getText())) {
+                dni_transferir.setStyle("-fx-border-color: red;");
+                confirmar_transferencia.setDisable(true);
+            }
+            else{
+                dni_transferir.setStyle("");
+                confirmar_transferencia.setDisable(false);
+            }
+        });
+        dni_destino.textProperty().addListener(e->{
+            if (dni_destino.getText().isEmpty() || !comprobar_dni(dni_destino.getText())) {
+                dni_destino.setStyle("-fx-border-color: red;");
+                confirmar_transferencia.setDisable(true);
+            }
+            else{
+                dni_destino.setStyle("");
+                confirmar_transferencia.setDisable(false);
+            }
+        });
+        monto_ingresar.textProperty().addListener(e->{
+            if (monto_ingresar.getText().isEmpty() || !comprobar_monto(monto_ingresar.getText())) {
+                monto_ingresar.setStyle("-fx-border-color: red;");
+                confirmar_ingreso.setDisable(true);
+            }
+            else{
+                monto_ingresar.setStyle("");
+                confirmar_ingreso.setDisable(false);
+            }
+        });
+        monto_retirar.textProperty().addListener(e->{
+            if (monto_retirar.getText().isEmpty() || !comprobar_monto(monto_retirar.getText())) {
+                monto_retirar.setStyle("-fx-border-color: red;");
+                confirmar_retiro.setDisable(true);
+            }
+            else{
+                monto_retirar.setStyle("");
+                confirmar_retiro.setDisable(false);
+            }
+        });
+        monto_transferir.textProperty().addListener(e->{
+            if (monto_transferir.getText().isEmpty() || !comprobar_monto(monto_transferir.getText())) {
+                monto_transferir.setStyle("-fx-border-color: red;");
+                confirmar_transferencia.setDisable(true);
+            }
+            else{
+                monto_transferir.setStyle("");
+                confirmar_transferencia.setDisable(false);
+            }
+        });
+
 
         Scene scene = new Scene(hbox, 700, 540);
         stage.setScene(scene);
@@ -377,10 +551,6 @@ public class App extends Application {
     }
 
     public void ventana_retirar() throws FileNotFoundException {
-        Stage ventana_retirar = new Stage();
-        TextField dni_retirar=new TextField();
-        TextField monto_retirar=new TextField();
-        Button confirmar_retiro=new Button("Retirar");
         Label titulo=new Label("Ingrese su dni: ");
         titulo.setFont(Font.font("System", FontWeight.BOLD, 15));
         Label titulo_monto=new Label("Ingrese el monto a retirar: ");
@@ -403,18 +573,12 @@ public class App extends Application {
     }
 
     public void ventana_transferir() throws FileNotFoundException {
-        Stage ventana_transferir = new Stage();
-        TextField dni_transferir=new TextField();
-        TextField monto_transferir=new TextField();
-        Button confirmar_transferencia=new Button("Transferir");
         Label titulo=new Label("Ingrese su dni: ");
         titulo.setFont(Font.font("System", FontWeight.BOLD, 15));
         Label titulo_monto=new Label("Ingrese el monto a transferir: ");
         titulo_monto.setFont(Font.font("System", FontWeight.BOLD, 15));
         Label titulo_dni_destino=new Label("Ingrese el dni del destinatario: ");
-        titulo_dni_destino.setFont(Font.font("System", FontWeight.BOLD, 15));
-        TextField dni_destino=new TextField();
-        aplicarEstiloBoton(confirmar_transferencia);
+        titulo_dni_destino.setFont(Font.font("System", FontWeight.BOLD, 15));aplicarEstiloBoton(confirmar_transferencia);
         VBox vBox=new VBox(titulo,dni_transferir,titulo_dni_destino,dni_destino,titulo_monto,monto_transferir,confirmar_transferencia);
         vBox.setStyle("-fx-background-color: #B4D2D9;");
         vBox.setSpacing(8);
@@ -461,6 +625,10 @@ public class App extends Application {
     private boolean comprobar_dni(String dni) {
         String patron = "^\\d{8}[a-zA-Z]$";//podria hacer que no acepte minusculas
         return dni != null && dni.matches(patron);
+    }
+    private boolean comprobar_monto(String monto) {
+        String patron = "^\\d{1,1000000000}$";
+        return monto != null && monto.matches(patron);
     }
 
     //    private boolean comprobar_fecha(String fecha){

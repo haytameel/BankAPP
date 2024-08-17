@@ -1,8 +1,10 @@
 package es.uji.al426285;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
+import es.uji.al426285.Modelo.Cliente;
+import es.uji.al426285.Modelo.Consulta;
+import es.uji.al426285.Modelo.Cuenta;
+import es.uji.al426285.Modelo.Transaccion;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

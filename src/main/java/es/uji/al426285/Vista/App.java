@@ -1,5 +1,8 @@
-package es.uji.al426285;
+package es.uji.al426285.Vista;
 
+import es.uji.al426285.Modelo.Cliente;
+import es.uji.al426285.Controlador.Controlador;
+import es.uji.al426285.Modelo.Cuenta;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -131,7 +134,7 @@ public class App extends Application {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Advertencia");
                 alerta.setHeaderText("¡ADVERTENCIA!");
-                alerta.setContentText("Por favor, rellena todos los campos");
+                alerta.setContentText("Por favor, rellene todos los campos.");
                 alerta.showAndWait();
             } else {
                 //Crear cliente y su cuenta
@@ -226,7 +229,7 @@ public class App extends Application {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Advertencia");
                 alerta.setHeaderText("¡ADVERTENCIA!");
-                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos.");
+                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos con dos decimales como máximo si procede.");
                 alerta.showAndWait();
             } else {
                 int origen = -1;
@@ -293,14 +296,20 @@ public class App extends Application {
                         Alert alerta = new Alert(Alert.AlertType.ERROR);
                         alerta.setTitle("Error");
                         alerta.setHeaderText("¡ERROR!");
-                        alerta.setContentText("Monto introducido incorrecto. Use punto en lugar de coma para separar los decimales.");
+                        alerta.setContentText(ex.getMessage());
                         alerta.showAndWait();
                     }
                 }
             }
         });
         confirmar_transferencia.setOnAction(e -> {
-            if (dni_transferir.getText().isEmpty() || !comprobar_dni(dni_transferir.getText()) || dni_destino.getText().isEmpty() || !comprobar_dni(dni_destino.getText())) {
+            if (dni_transferir.getText().isEmpty() || dni_destino.getText().isEmpty() || monto_transferir.getText().isEmpty()) {
+                Alert alerta = new Alert(Alert.AlertType.WARNING);
+                alerta.setTitle("Advertencia");
+                alerta.setHeaderText("¡ADVERTENCIA!");
+                alerta.setContentText("Por favor, rellene todos los campos.");
+                alerta.showAndWait();
+            } else if (dni_transferir.getText().isEmpty() || !comprobar_dni(dni_transferir.getText()) || dni_destino.getText().isEmpty() || !comprobar_dni(dni_destino.getText())) {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Advertencia");
                 alerta.setHeaderText("¡ADVERTENCIA!");
@@ -310,23 +319,42 @@ public class App extends Application {
                 Alert alerta = new Alert(Alert.AlertType.WARNING);
                 alerta.setTitle("Advertencia");
                 alerta.setHeaderText("¡ADVERTENCIA!");
-                alerta.setContentText("Monto introducido erróneo. Escriba únicamente valores numéricos y use '.' para separar los decimales");
+                alerta.setContentText("Introduzca la cantidad a transferir y emplee únicamente valores numéricos usando '.' para separar los decimales si procede.");
                 alerta.showAndWait();
             } else {
-                int origen;
-                int destino;
+                int origen = -1;
+                int destino = -1;
                 try {
                     origen = controlador.consultar_id(dni_transferir.getText());
+                } catch (Exception ignored) {
+                }
+                try {
                     destino = controlador.consultar_id(dni_destino.getText());
-                    controlador.realizar_transaccion(origen, Double.parseDouble(monto_transferir.getText()), LocalDateTime.now().toString(), 2, destino);
-                    Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
-                    alerta.setTitle("Confirmación");
-                    alerta.setHeaderText("¡CONFIRMACIÓN!");
-                    alerta.setContentText("Ha transferido un total de: " + monto_transferir.getText() + "€" + " desde la cuenta cuyo dni del titular es '" + dni_transferir.getText() +
-                            "' a la cuenta cuyo dni del titular es " + "'" + dni_destino.getText() + "'");
+                } catch (Exception ignored) {
+
+                }
+                if (origen != -1 && destino != -1 && origen != destino) {
+                    try {
+                        controlador.realizar_transaccion(origen, Double.parseDouble(monto_transferir.getText()), LocalDateTime.now().toString(), 2, destino);
+                        Alert alerta = new Alert(Alert.AlertType.CONFIRMATION);
+                        alerta.setTitle("Confirmación");
+                        alerta.setHeaderText("¡CONFIRMACIÓN!");
+                        alerta.setContentText("Ha transferido un total de: " + monto_transferir.getText() + "€" + " desde la cuenta cuyo dni del titular es '" + dni_transferir.getText() +
+                                "' a la cuenta cuyo dni del titular es " + "'" + dni_destino.getText() + "'");
+                        alerta.showAndWait();
+                    } catch (Exception ex) {
+                        Alert alerta = new Alert(Alert.AlertType.ERROR);
+                        alerta.setTitle("Error");
+                        alerta.setHeaderText("¡ERROR!");
+                        alerta.setContentText(ex.getMessage());
+                        alerta.showAndWait();
+                    }
+                } else {
+                    Alert alerta = new Alert(Alert.AlertType.WARNING);
+                    alerta.setTitle("Advertencia");
+                    alerta.setHeaderText("¡ADVERTENCIA!");
+                    alerta.setContentText("Revise los dni's introducidos o el monto introducido.");
                     alerta.showAndWait();
-                } catch (Exception ex) {
-                    throw new RuntimeException("El ingreso no ha podido realizarse. Inténtelo de nuevo en unos segundos.");
                 }
             }
         });
@@ -507,7 +535,7 @@ public class App extends Application {
         borderPane.setCenter(vBox);
         Scene scene = new Scene(borderPane, 380, 380);
         ventana_retirar.setScene(scene);
-        ventana_retirar.setTitle("Ingresar");
+        ventana_retirar.setTitle("Retirar");
         InputStream entrada = new FileInputStream(ruta_icono + "retirar.png");
         Image imagen = new Image(entrada);
         ventana_retirar.getIcons().add(imagen);
@@ -572,7 +600,7 @@ public class App extends Application {
 
     private boolean comprobar_monto(String monto) {
 
-        String patron = "^\\d{1,9}(.\\d{1,2})?$"; //Esto seria el equivalente a esto--> String patron = "^\\d{1,9}$"; y String patron2="^\\d{1,9},\\d{2}$";
+        String patron = "^\\d{1,9}(\\.\\d{1,2})?$"; //Esto seria el equivalente a esto--> String patron = "^\\d{1,9}$"; y String patron2="^\\d{1,9},\\d{2}$";
         return monto != null && (monto.matches(patron));
     }
 
@@ -613,12 +641,6 @@ public class App extends Application {
         action_comprobaciones_dni(dni_destino, confirmar_transferencia);
     }
 
-    //    private boolean comprobar_fecha(String fecha){
-////        String patron="^\\d{2}/\\d{2}/\\d{4}";
-//      //  return fecha!=null && fecha.matches(patron);
-//        String[] partes=fecha.split("/");
-//        return partes[1].length()<=2 && partes[2].length()<=2 && partes[3].length()==4;
-//    }
     public static void main(String[] args) {
         launch();
 //        List<String> fontNames    = Font.getFontNames();
@@ -628,12 +650,3 @@ public class App extends Application {
     }
 
 }
-
-/*
-* cliente.setNombre(nombree.getText());
-                cliente.setApellidos(apellidoss.getText());
-                cliente.setDni(dnii.getText());
-                cliente.setDireccion(direccionn.getText());
-                cliente.setTelefono(telefonoo.getText());
-                cliente.setEmail(correoo.getText());
-                cliente.setFechaNacimiento(fecha_nacimientoo.getValue().toString());*/

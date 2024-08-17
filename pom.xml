@@ -42,7 +42,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <executable>${java.home}/bin/java</executable>
-                            <mainClass>es.uji.al426285.App</mainClass>
+                            <mainClass>es.uji.al426285.Vista.App</mainClass>
                         </configuration>
                     </execution>
                 </executions>

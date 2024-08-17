@@ -1,12 +1,9 @@
-package es.uji.al426285;
+package es.uji.al426285.Modelo;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.Properties;
-
-import static es.uji.al426285.Cliente.getFechaUSA;
 
 public class Transaccion {
     private int idTransaccion = 0;
@@ -100,7 +97,7 @@ public class Transaccion {
         String usuario = props.getProperty("db.user");
         String clave = props.getProperty("db.password");
 
-       //otra opcion--> System.getenv("DB_USER")y System.getenv("DB_PASSWORD")
+        //otra opcion--> System.getenv("DB_USER")y System.getenv("DB_PASSWORD")
         String insertar = "INSERT INTO transacciones (id_cuenta,id_cuenta_destino,tipo, monto, fecha) VALUES (?,?, ?,?,?)";
         String consulta = "SELECT saldo FROM cuentas WHERE id_cuenta = ?";
         String actualizar_saldo = "UPDATE cuentas SET saldo = ? WHERE id_cuenta = ?";
@@ -125,7 +122,8 @@ public class Transaccion {
                 System.out.println("Cambios: " + cambios);
             } else if (this.getTipo() == RETIRO) {//Si es tipo 1, es decir, retirar
                 if (saldo_origen < this.cantidad) {
-                    System.out.println("Saldo insuficiente para hacer la retirada ");
+//                    System.out.println("Saldo insuficiente para hacer la retirada ");
+                    throw new Exception("Saldo insuficiente para hacer la retirada ");
                 } else {
                     double total = saldo_origen - this.getCantidad();
                     PreparedStatement actualizar = connection.prepareStatement(actualizar_saldo);
@@ -140,7 +138,9 @@ public class Transaccion {
             } else if (this.getTipo() == TRANSFERENCIA) { //Si es tipo 2, es decir, transferencia
 
                 if (saldo_origen < this.cantidad) {
-                    System.out.println("Saldo insuficiente para hacer la retirada ");
+                    //  System.out.println("Saldo insuficiente para hacer la retirada ");
+                    throw new Exception("Saldo insuficiente para hacer la retirada ");
+
                 } else {
                     try {
                         //Consultar saldo destino
@@ -191,6 +191,8 @@ public class Transaccion {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             return false;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return cambios > 0;
     }

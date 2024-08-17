@@ -1,4 +1,4 @@
-package es.uji.al426285;
+package es.uji.al426285.Modelo;
 
 import java.io.FileInputStream;
 import java.io.IOException;

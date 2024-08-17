@@ -1,10 +1,9 @@
-package es.uji.al426285;
+package es.uji.al426285.Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.Date;
 
 public class Cliente {
     private String nombre;

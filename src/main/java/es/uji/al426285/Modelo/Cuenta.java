@@ -1,11 +1,9 @@
-package es.uji.al426285;
+package es.uji.al426285.Modelo;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-
-import static es.uji.al426285.Cliente.getFechaUSA;
 
 public class Cuenta {
     private int id_cuenta;

@@ -1,4 +1,9 @@
-package es.uji.al426285;
+package es.uji.al426285.Controlador;
+
+import es.uji.al426285.Modelo.Cliente;
+import es.uji.al426285.Modelo.Consulta;
+import es.uji.al426285.Modelo.Cuenta;
+import es.uji.al426285.Modelo.Transaccion;
 
 import java.time.LocalDate;
 
@@ -60,7 +65,7 @@ public class Controlador {
         transaccion.insertarTransaccion();
         }
         catch(Exception e){
-            throw new Exception("La transacción no ha podido ser realizada.");
+            throw new Exception(e.getMessage());
         }
         return true;
     }

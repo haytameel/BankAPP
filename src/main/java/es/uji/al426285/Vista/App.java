@@ -598,7 +598,6 @@ public class App extends Application {
         if (!comprobar_dni(campo.getText())) {
             campo.setStyle("-fx-border-color: red;");
             boton.setDisable(true);
-            System.out.println("eooooooo");
         } else {
             boton.setDisable(false);
             campo.setStyle("");

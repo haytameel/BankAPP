@@ -20,8 +20,6 @@ de evitar datos erróneos y problemas de cara a la integridad de los datos.
 - **Interfaz de Usuario**: JavaFX
 - **Gestión de Proyectos**: Maven
 - **Entorno de desarrollo**: IntelliJ IDEA
-- **Interfaz de Usuario**: JavaFX
-
 ## Interfaz Gráfica
 
 - **Elección de una de las 3 opciones. Registrar un nuevo cliente, consultar el saldo de un cliente o realizar alguna operación.**

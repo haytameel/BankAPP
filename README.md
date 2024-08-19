@@ -17,3 +17,28 @@ Este proyecto es una aplicación bancaria desarrollada en Java. La aplicación p
 - **Lenguaje de Programación**: Java
 - **Base de Datos**: MySQL
 - **Interfaz de Usuario**: JavaFX, EN PROCESO...
+
+## Interfaz Gráfica
+
+- **Elección de una de las 3 opciones. Registrar un nuevo cliente, consultar el saldo de un cliente o realizar alguna operación (ingresar, retirar o transferir)**:
+  ![Elección de una de las 3 opciones."](src/Files/Pagina_principal.png)
+
+---
+
+- **Registrar un nuevo usuario proporcionando los datos demandados correctamente para su posterior validación y registro en la base de datos.**:
+  ![Registrar un nuevo usuario](src/Files/Registro.png)
+
+---
+
+- **Realizar una consulta del saldo de un cliente proporcionando su dni.**:
+  ![Realizar una consulta del saldo de un cliente proporcionando su dni.](src/Files/Consulta.png)
+
+---
+
+- **Escoger una de las tres operaciones. Se puede hacer un ingreso o un retiro de una cuenta determinada, o una transferencia entre dos cuentas existentes.**:
+  ![Escoger una de las tres operaciones.](src/Files/Operar.png)
+
+  ---
+
+- **Las 3 operaciones básicas disponibles.**:
+  ![Las 3 operaciones básicas disponibles.](src/Files/ingresar_retirar_transferir.png)

@@ -5,17 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4ee2dcaf-8aa7-4cd4-952f-8626a47fdaba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Files/Consulta.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/Operar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/Pagina_principal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/Registro.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Files/ingresar_retirar_transferir.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Vista/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cliente.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Consulta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Consulta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Controlador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Controlador/Controlador.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Cuenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cuenta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/SystemInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Transaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Transaccion.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cuenta.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Cuenta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Transaccion.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Modelo/Transaccion.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Vista/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/es/uji/al426285/Vista/App.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -135,7 +134,7 @@
       <workItem from="1718834146165" duration="13085000" />
       <workItem from="1723324345418" duration="3806000" />
       <workItem from="1723461445206" duration="34981000" />
-      <workItem from="1723717439873" duration="40643000" />
+      <workItem from="1723717439873" duration="41983000" />
     </task>
     <servers />
   </component>

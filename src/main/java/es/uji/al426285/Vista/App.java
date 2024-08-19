@@ -97,13 +97,6 @@ public class App extends Application {
         //permitir que ambas VBox  crezcan hasta ocupar el ancho máximo disponible.
         izquierda.setMaxWidth(Double.MAX_VALUE);
         derecha.setMaxWidth(Double.MAX_VALUE);
-//        BorderPane borderPane=new BorderPane();
-//        borderPane.setLeft(izquierda);borderPane.setRight(derecha);borderPane.setCenter(new Label("HOLAAAAAAA"));
-        //boton aceptar
-//        confirmar.setDisable(true);
-//        opcion_alta.setOnAction(e -> confirmar.setDisable(false));
-//        opcion_consulta.setOnAction(e -> confirmar.setDisable(false));
-//        opcion_operar.setOnAction(e -> confirmar.setDisable(false));
         iniciar_action_comprobaciones_dni();
         confirmar.setOnAction(e -> {
             try {
@@ -437,7 +430,6 @@ public class App extends Application {
     }
 
     private void ventana_alta() throws FileNotFoundException {
-
         aplicarEstiloBoton(confirmar_alta);
         titulo.setFont(Font.font("System", FontWeight.BOLD, 20));
         VBox vBox = new VBox(titulo, nombre, nombree, apellidos, apellidoss, correo, correoo, telefono, telefonoo, dni, dnii, direccion, direccionn, fecha_nacimiento, fecha_nacimientoo, confirmar_alta);
@@ -579,8 +571,6 @@ public class App extends Application {
                 + "-fx-font-weight: bold;\n"
                 + "     -fx-background-radius: 35px;\n "
                 + "    -fx-padding: 10 20 10 20;");
-//        boton.setCancelButton(true);
-//        boton.borderProperty(Border.EMPTY);
     }
 
     private boolean comprobar_correo(String correo) {
@@ -643,10 +633,6 @@ public class App extends Application {
 
     public static void main(String[] args) {
         launch();
-//        List<String> fontNames    = Font.getFontNames();
-//        for(String item : fontNames) {
-//            System.out.println(item);
-//        }
     }
 
 }

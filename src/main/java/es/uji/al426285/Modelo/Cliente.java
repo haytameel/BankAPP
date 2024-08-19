@@ -1,9 +1,12 @@
 package es.uji.al426285.Modelo;
 
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Cliente {
     private String nombre;
@@ -95,9 +98,15 @@ public class Cliente {
     }
 
     public boolean insertarCliente(){
-        String url="jdbc:mysql://localhost:3306/banco";
-        String usuario="root";
-        String clave="hayta";
+        Properties props = new Properties();
+        try (FileInputStream entrada = new FileInputStream("config.properties")) {
+            props.load(entrada);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String url = props.getProperty("db.url");
+        String usuario = props.getProperty("db.user");
+        String clave = props.getProperty("db.password");
         String insertar="INSERT INTO clientes (nombre, apellidos, email, telefono, dni, direccion, fecha_nacimiento) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection connection= DriverManager.getConnection(url,usuario,clave)){

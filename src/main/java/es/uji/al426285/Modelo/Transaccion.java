@@ -122,7 +122,6 @@ public class Transaccion {
                 System.out.println("Cambios: " + cambios);
             } else if (this.getTipo() == RETIRO) {//Si es tipo 1, es decir, retirar
                 if (saldo_origen < this.cantidad) {
-//                    System.out.println("Saldo insuficiente para hacer la retirada ");
                     throw new Exception("Saldo insuficiente para hacer la retirada ");
                 } else {
                     double total = saldo_origen - this.getCantidad();
@@ -176,7 +175,7 @@ public class Transaccion {
             }
 
             //insertar transaccion si han habido cambios. MUY IMPORTANTE HACERLO AL FINAL, dado que en ciertas ocasiones no se completa la transaccion por lo que no
-            //es necesario tener constancia de ella
+            //es necesario tener un registro de ella
             if (cambios > 0) {
                 PreparedStatement accion = connection.prepareStatement(insertar);
                 accion.setInt(1, this.getIdCuenta());
